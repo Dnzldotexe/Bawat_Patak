@@ -6,4 +6,4 @@ st.set_page_config(
 )
 
 st.title("📄 Your Logs:")
-st.sidebar.success("Select a page above.")
+#st.sidebar.success("Select a page above.")

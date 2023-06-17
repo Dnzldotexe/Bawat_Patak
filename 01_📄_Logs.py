@@ -24,6 +24,8 @@ elif authentication_status is None:
     st.warning("Please enter your username and password")
 
 elif authentication_status:
+    authenticator.logout("Logout", "sidebar")
+    st.sidebar.title(f"Welcome {name}")
     st.title(f"📊 {name}'s Dashboard")
     st.write("Some Dashboard")
 

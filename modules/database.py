@@ -1,6 +1,6 @@
 import streamlit as st
 import streamlit_authenticator as stauth
-from supabase import create_client, Client
+from supabase import create_client#, Client
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.

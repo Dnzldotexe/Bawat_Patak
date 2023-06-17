@@ -12,6 +12,10 @@ def init_connection():
 
 supabase = init_connection()
 
+@st.cache_data(ttl=600)
+def fetch_all_users():
+    return supabase.table("users_db").select("*").execute()
+
 def create_user(username, name, password):
     res = supabase.auth.sign_up({
     "usernames": f'{username}',
@@ -19,10 +23,6 @@ def create_user(username, name, password):
     "passwords": f'{stauth.Hasher(password).generate()}',
     })
     return res
-
-@st.cache_data(ttl=600)
-def fetch_all_users():
-    return supabase.table("users_db").select("*").execute()
 
 # def update_password():
 #     return supabase.table("users_db").select("*").execute()

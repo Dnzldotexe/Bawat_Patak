@@ -23,9 +23,3 @@ def create_user(username, name, password):
     "passwords": f'{stauth.Hasher(password).generate()}',
     })
     return res
-
-# def update_password():
-#     return supabase.table("users_db").select("*").execute()
-
-# def delete_user():
-#     return supabase.table("users_db").select("*").execute()

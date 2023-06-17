@@ -13,7 +13,7 @@ names = [user["names"] for user in users.data]
 hashed_passwords = [user["passwords"] for user in users.data]
 
 authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
-    "logs_cookie", "random_cookey", 14)
+    "logs_cookie", "abcd", 14)
 
 name, authentication_status, username = authenticator.login('Login', 'main')
 

@@ -1,4 +1,4 @@
-python>=3.10
 streamlit==1.23.1
 streamlit_authenticator==0.2.2
 supabase
+opencv-python-headless

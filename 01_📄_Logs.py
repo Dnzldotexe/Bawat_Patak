@@ -17,6 +17,12 @@ authenticator = stauth.Authenticate(list_names, list_usernames, list_hashed_pass
 
 name, authentication_status, username = authenticator.login('Login', 'main')
 
+if authentication_status is False:
+    st.error("Username/Password is incorrect")
+
+if authentication_status is None:
+    st.warning("Please enter your username and password")
+
 if authentication_status:
     authenticator.logout("Logout", "sidebar")
     st.sidebar.title(f"Welcome {name}")
@@ -25,9 +31,3 @@ if authentication_status:
 
     st.title("📄 Your Logs ✍")
     st.write("This is a placeholder. I'm checking if changes reflects immediately to streamlit.")
-
-elif authentication_status is False:
-    st.error("Username/Password is incorrect")
-
-elif authentication_status is None:
-    st.warning("Please enter your username and password")

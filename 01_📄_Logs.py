@@ -8,24 +8,11 @@ Title()
 
 users = db.fetch_all_users()
 
-def generate_credentials():
-    list_usernames = [user['usernames'] for user in users.data]
-    list_names = [user['names'] for user in users.data]
-    list_hashed_passwords = [user['passwords'] for user in users.data]
+list_usernames = [user['usernames'] for user in users.data]
+list_names = [user['names'] for user in users.data]
+list_hashed_passwords = [user['passwords'] for user in users.data]
 
-    user_values = []
-    for username, name, password in zip(list_usernames, list_names, list_hashed_passwords):
-        user_values.append({'username': username, 'name': name, 'password': password})
-
-    credentials = {'usernames': {}}
-    for username, users.data in zip(list_usernames, user_values):
-        credentials['usernames'][username] = users.data
-
-    return {'credentials': credentials}
-
-credentials = generate_credentials()
-
-authenticator = stauth.Authenticate(credentials,
+authenticator = stauth.Authenticate(list_names, list_usernames, list_hashed_passwords,
     "logs_cookie", "cookie_key_abcd", 14)
 
 name, authentication_status, username = authenticator.login('Login', 'main')

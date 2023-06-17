@@ -9,8 +9,8 @@ Title()
 users = db.fetch_all_users()
 
 usernames = [user["usernames"] for user in users.data]
-names = [user["names"] for user in users]
-hashed_passwords = [user["passwords"] for user in users]
+# names = [user["names"] for user in users]
+# hashed_passwords = [user["passwords"] for user in users]
 
 st.write(users)
 st.write(usernames)

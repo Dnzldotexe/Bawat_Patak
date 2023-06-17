@@ -12,11 +12,12 @@ usernames = {"usernames":user['usernames'] for user in users}
 names = {"names":user['names'] for user in users}
 hashed_passwords = {"passwords":user['passwords'] for user in users}
 
-st.write(users)
-st.write(users.data)
-st.write(usernames)
-st.write(names)
-st.write(hashed_passwords)
+i=0
+while i < len(usernames):
+    st.write(usernames)
+    st.write(names)
+    st.write(hashed_passwords)
+    i+=1
 
 authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
     "logs_cookie", "abcd", 14)

@@ -18,20 +18,20 @@ st.write(usernames)
 st.write(names)
 st.write(hashed_passwords)
 
-# authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
-#     "logs_cookie", "abcd", 14)
+authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
+    "logs_cookie", "abcd", 14)
 
-# name, authentication_status, username = authenticator.login('Login', 'main')
+name, authentication_status, username = authenticator.login('Login', 'main')
 
-# if authentication_status is False:
-#     st.error("Username/password is incorrect")
+if authentication_status is False:
+    st.error("Username/password is incorrect")
 
-# if authentication_status is None:
-#     st.warning("Please enter your username and password")
+if authentication_status is None:
+    st.warning("Please enter your username and password")
 
-# if authentication_status:
-#     st.title("📊 {name}'s Dashboard")
-#     st.write("Some Dashboard")
+if authentication_status:
+    st.title("📊 {name}'s Dashboard")
+    st.write("Some Dashboard")
 
-#     st.title("📄 Your Logs ✍")
-#     st.write("This is a placeholder. I'm checking if changes reflects immediately to streamlit.")
+    st.title("📄 Your Logs ✍")
+    st.write("This is a placeholder. I'm checking if changes reflects immediately to streamlit.")

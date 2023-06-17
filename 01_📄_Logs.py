@@ -16,7 +16,7 @@ list_hashed_passwords = [user['passwords'] for user in users.data]
 authenticator = stauth.Authenticate(list_names, list_usernames, list_hashed_passwords,
     "logs_cookie", "cookie_key_abcd", 14)
 
-name, authentication_status, username = authenticator.login('Login', 'sidebar')
+name, authentication_status, username = authenticator.login('Login', 'main')
 
 if authentication_status is False:
     st.error("Username/Password is incorrect")

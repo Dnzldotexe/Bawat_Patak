@@ -8,9 +8,9 @@ Title()
 
 users = db.fetch_all_users()
 
-usernames = [{user["usernames"]} for user in users.data]
-names = [{user["names"]} for user in users.data]
-hashed_passwords = [{user["passwords"]} for user in users.data]
+usernames = [user["usernames"] for user in users.data]
+names = [user["names"] for user in users.data]
+hashed_passwords = [user["passwords"] for user in users.data]
 
 authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
     "logs_cookie", "random_cookey", 14)
@@ -24,7 +24,7 @@ if authentication_status is None:
     st.warning("Please enter your username and password")
 
 if authentication_status:
-    st.title(f"📊 {name}'s Dashboard")
+    st.title("📊 {name}'s Dashboard")
     st.write("Some Dashboard")
 
     st.title("📄 Your Logs ✍")

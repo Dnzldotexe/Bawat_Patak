@@ -12,7 +12,7 @@ def init_connection():
 
 supabase = init_connection()
 
-#@st.cache_data(ttl=600)
+@st.cache_data(ttl=600)
 def fetch_all_users():
     return supabase.table("users_db").select("*").execute()
 

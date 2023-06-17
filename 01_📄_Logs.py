@@ -9,10 +9,10 @@ Title()
 users = db.fetch_all_users()
 
 usernames = [user["usernames"] for user in users.data]
-names = [user["names"] for user in users.data]
-hashed_passwords = [user["passwords"] for user in users.data]
+# names = [user["names"] for user in users.data]
+# hashed_passwords = [user["passwords"] for user in users.data]
 
-st.write(names)
+st.write(usernames)
 
 # authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
 #     "logs_cookie", "abcd", 14)

@@ -8,19 +8,11 @@ Title()
 
 users = db.fetch_all_users()
 
-def convert_to_dict(data,credentials=[]):
-    for user in data:
-        user_dict = {
-            "usernames": user['usernames'],
-            "names": user['names'],
-            "passwords": user['passwords']
-        }
-        credentials.append(user_dict)
-    return credentials
+usernames = {"usernames": [user['usernames'] for user in users.data]}
+names = {"names": [user['names'] for user in users.data]}
+hashed_passwords = {"passwords": [user['passwords'] for user in users.data]}
 
-credentials = convert_to_dict(users.data)
-
-authenticator = stauth.Authenticate(credentials,
+authenticator = stauth.Authenticate(usernames, names, hashed_passwords,
     "logs_cookie", "abcd", 14)
 
 name, authentication_status, username = authenticator.login('Login', 'main')

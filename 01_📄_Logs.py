@@ -7,8 +7,7 @@ from modules import database as db
 
 
 # Setting title page
-icon, title = '💧', 'Bawat Patak'
-st.set_page_config(page_title=title, page_icon=icon)
+st.set_page_config(page_title="Bawat Patak", page_icon=":droplet:")
 
 
 # Fetching all the users
@@ -40,6 +39,7 @@ def create_config():
         credentials['usernames'][username] = user_data
 
     return credentials
+
 
 def main():
     authenticator = stauth.Authenticate(create_config(),

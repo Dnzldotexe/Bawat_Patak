@@ -26,57 +26,39 @@ def to_list() -> list[str]:
                 
 def create_config():
     """
-    Combining all user data into a dictionary
+    Combining all user data into a credentials dictionary
     """
     list_usernames, list_names, list_emails, list_passwords = to_list()
 
-    user_values = []
-    for email, name, password in zip(list_emails, list_names, list_passwords):
-        user_values.append({'email': email, 'name': name, 'password': password})
-
-    credentials = {'usernames': {}}
-    for username, user_data in zip(list_usernames, user_values):
-        credentials['usernames'][username] = user_data
+    credentials = {"usernames":{}}
+    for username, name, email, password in zip(list_usernames, list_names, list_emails, list_passwords):
+        user_dict = {"email": email, "name":name,"password":password}
+        credentials["usernames"].update({username:user_dict})
 
     return credentials
 
 
-authenticator = stauth.Authenticate(create_config(),
-    "logs_cookie", "cookie_key_abcd", 14)
+def main():
+    authenticator = stauth.Authenticate(create_config(),
+        "logs_cookie", "cookie_key_abcd", 14)
 
-name, authentication_status, username = authenticator.login('Login', 'main')
-if authentication_status:
-    authenticator.logout('Logout', 'main', key='unique_key')
-    st.write(f'Welcome *{name}*')
-    st.title('Some content')
-elif authentication_status is False:
-    st.error('Username/password is incorrect')
-elif authentication_status is None:
-    st.warning('Please enter your username and password')
+    name, authentication_status, username = authenticator.login('Login', 'main')
 
+    if authentication_status is False:
+        st.error("Username/Password is incorrect")
 
+    if authentication_status is None:
+        st.warning("Please enter your username and password")
 
-# def main():
-#     authenticator = stauth.Authenticate(create_config(),
-#         "logs_cookie", "cookie_key_abcd", 14)
+    if authentication_status:
+        authenticator.logout("Logout", "sidebar")
+        st.sidebar.title(f"Welcome {name}")
+        st.title("📊 Your Dashboard")
+        st.write("Some Dashboard")
 
-#     name, authentication_status, username = authenticator.login('Login', 'main')
-
-#     if authentication_status is False:
-#         st.error("Username/Password is incorrect")
-
-#     if authentication_status is None:
-#         st.warning("Please enter your username and password")
-
-#     if authentication_status:
-#         authenticator.logout("Logout", "sidebar")
-#         st.sidebar.title(f"Welcome {name}")
-#         st.title("📊 Your Dashboard")
-#         st.write("Some Dashboard")
-
-#         st.title("📄 Your Logs ✍")
-#         st.write("This is a placeholder. I'm checking if changes reflects immediately to streamlit.")
+        st.title("📄 Your Logs ✍")
+        st.write("This is a placeholder. I'm checking if changes reflects immediately to streamlit.")
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

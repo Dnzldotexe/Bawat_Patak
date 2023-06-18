@@ -35,7 +35,10 @@ def to_list() -> list[str]:
     list_usernames = [user['usernames'] for user in users.data]
     list_names = [user['names'] for user in users.data]
     list_emails = [user['emails'] for user in users.data]
-    list_hashed_passwords = [user['hashed_passwords'] for user in users.data]
+    list_passwords = [user['passwords'] for user in users.data]
+
+    # hashing passwords
+    list_hashed_passwords = stauth.Hasher(list_passwords).generate()
 
     return list_usernames, list_names, list_emails, list_hashed_passwords
 

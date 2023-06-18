@@ -2,8 +2,7 @@
 This module handles all the functions for the database
 """
 import streamlit as st
-import streamlit_authenticator as stauth
-from supabase import create_client#, Client
+from supabase import create_client
 
 
 @st.cache_resource
@@ -28,7 +27,7 @@ def fetch_all_users():
     """
     return supabase.table("users_db").select("*").execute()
 
-def insert_user(username: str, name: str, email: str, password:str, cookie_name: str="bawat-patak_cookie", cookie_key: str="abcde"):
+def insert_user(username: str, name: str, email: str, password: str, cookie_name: str="bawat-patak_cookie", cookie_key: str="abcde"):
     """
     Creates a new user with a hashed password.
     """
@@ -36,7 +35,7 @@ def insert_user(username: str, name: str, email: str, password:str, cookie_name:
         "usernames": username, 
         "names": name,
         "emails": email,
-        "hashed_passwords": stauth.Hasher(password).generate(),
+        "passwords": password,
         "cookie_names": cookie_name,
         "cookie_keys": cookie_key
         }).execute()

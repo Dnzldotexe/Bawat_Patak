@@ -59,31 +59,31 @@ def create_config():
     return credentials
 
 
-def main():
-    """
-    Contains the functions of the application
-    """
-    authenticator = stauth.Authenticate(create_config(),
-        "logs_cookie", "cookie_key_abcd", 14)
+# def main():
+    # """
+    # Contains the functions of the application
+    # """
+authenticator = stauth.Authenticate(create_config(),
+    "logs_cookie", "cookie_key_abcd", 14)
 
-    name, authentication_status, username = authenticator.login('Login', 'main')
+name, authentication_status, username = authenticator.login('Login', 'main')
 
-    if authentication_status is False:
-        st.error("Username/Password is incorrect")
+if authentication_status is False:
+    st.error("Username/Password is incorrect")
 
-    if authentication_status is None:
-        st.warning("Please enter your username and password")
+if authentication_status is None:
+    st.warning("Please enter your username and password")
 
-    if authentication_status is True:
-        st.success(f"Welcome *{username}*")
-        authenticator.logout("Logout", "sidebar")
-        st.sidebar.title(f"Welcome {name}")
-        st.title("📊 Your Dashboard")
-        st.write("Some Dashboard")
+if authentication_status is True:
+    st.success(f"Welcome *{username}*")
+    authenticator.logout("Logout", "sidebar")
+    st.sidebar.title(f"Welcome {name}")
+    st.title("📊 Your Dashboard")
+    st.write("Some Dashboard")
 
-        st.title("📄 Your Logs ✍")
-        st.write("This is a placeholder.")
+    st.title("📄 Your Logs ✍")
+    st.write("This is a placeholder.")
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

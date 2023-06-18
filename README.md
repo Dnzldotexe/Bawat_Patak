@@ -5,4 +5,4 @@ Username: admin
 Password: admin
 
 ## Running the app in the terminal
-`streamlit run 01_📄_Logs.py --server.enableCORS false --server.enableXsrfProtection false`
+`streamlit run app.py --server.enableCORS false --server.enableXsrfProtection false`

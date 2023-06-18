@@ -65,14 +65,14 @@ def main():
 
     name, authentication_status, username = authenticator.login('Login', 'main')
 
-    if authentication_status is False:
+    if st.session_state["authentication_status"] is False:
         st.error("Username/Password is incorrect")
 
-    if authentication_status is None:
+    if st.session_state["authentication_status"] is None:
         st.warning("Please enter your username and password")
 
-    if authentication_status is True:
-        authenticator.logout("Logout", "sidebar")
+    if st.session_state["authentication_status"]:
+        authenticator.logout("Logout", "sidebar", key="unique_key")
         st.sidebar.title(f"{greet()} {name.title()}!")
         st.title("📊 Your Dashboard")
         st.write("Some Dashboard")

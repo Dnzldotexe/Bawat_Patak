@@ -20,30 +20,24 @@ def to_list() -> list[str]:
     """
     list_usernames = [user['usernames'] for user in users.data]
     list_names = [user['names'] for user in users.data]
+    list_emails = [user['emails'] for user in users.data]
     list_hashed_passwords = [user['hashed_passwords'] for user in users.data]
-    list_cookie_names = [user['cookie_names'] for user in users.data]
-    list_cookie_keys = [user['cookie_keys'] for user in users.data]
 
-    return list_usernames, list_names, list_hashed_passwords, list_cookie_names, list_cookie_keys
+    return list_usernames, list_names, list_emails, list_hashed_passwords
                 
 def create_config():
     """
     Combining all user data into a dictionary
     """
-    list_usernames, list_names, list_passwords, list_cookie_names, list_cookie_keys = to_list()
+    list_usernames, list_names, list_emails, list_passwords = to_list()
 
     user_values = []
-    for name, password in zip(list_names, list_passwords):
+    for name, password in zip(list_emails, list_names, list_passwords):
         user_values.append({'name': name, 'password': password})
 
     credentials = {'usernames': {}}
     for username, user_data in zip(list_usernames, user_values):
         credentials['usernames'][username] = user_data
-
-    config = {
-        'credentials': credentials,
-        # 'cookie': dict(zip(list_cookie_names, list_cookie_keys))
-    }
 
     return credentials
 

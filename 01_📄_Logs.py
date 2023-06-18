@@ -26,7 +26,7 @@ def to_list() -> list[str]:
 
     return list_usernames, list_names, list_hashed_passwords, list_cookie_names, list_cookie_keys
                 
-def create_config() -> dict(str):
+def create_config():
     """
     Combining all user data into a dictionary
     """
@@ -45,7 +45,7 @@ def create_config() -> dict(str):
         # 'cookie': dict(zip(list_cookie_names, list_cookie_keys))
     }
 
-    return config
+    return credentials
 
 def main():
     authenticator = stauth.Authenticate(create_config(),

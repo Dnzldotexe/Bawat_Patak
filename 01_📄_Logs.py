@@ -33,7 +33,7 @@ def create_config():
 
     user_values = []
     for email, name, password in zip(list_emails, list_names, list_passwords):
-        user_values.append({'name': name, 'password': password})
+        user_values.append({'email': email, 'name': name, 'password': password})
 
     credentials = {'usernames': {}}
     for username, user_data in zip(list_usernames, user_values):

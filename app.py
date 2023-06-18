@@ -28,9 +28,18 @@ st.set_page_config(page_title="Bawat Patak", page_icon=":droplet:")
 # Fetching all the users
 users = db.fetch_all_users()
 
-def to_list() -> list[str]:
+# def to_list() -> list[str]:
+#     """
+#     Converting fetched data into list independent of each other
+#     """
+
+
+def create_config():
     """
-    Converting fetched data into list independent of each other
+    Combining all user data into a credentials dictionary
+
+    Returns:
+        dict()
     """
     list_usernames = [user['usernames'] for user in users.data]
     list_names = [user['names'] for user in users.data]
@@ -40,16 +49,7 @@ def to_list() -> list[str]:
     # hashing passwords
     list_hashed_passwords = stauth.Hasher(list_passwords).generate()
 
-    return list_usernames, list_names, list_emails, list_hashed_passwords
-
-def create_config():
-    """
-    Combining all user data into a credentials dictionary
-
-    Returns:
-        dict()
-    """
-    usernames, names, emails, passwords = to_list()
+    usernames, names, emails, passwords = list_usernames, list_names, list_emails, list_hashed_passwords
 
     credentials = {"usernames":{}}
     for username, name, email, password in zip(usernames, names, emails, passwords):

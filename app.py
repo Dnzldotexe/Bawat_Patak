@@ -6,7 +6,7 @@ import streamlit as st
 import streamlit_authenticator as stauth
 from modules import database as db
 
-def greet():
+def greet() -> str:
     """
     Greeting the user 
     """
@@ -39,7 +39,7 @@ def to_list() -> list[str]:
 
     return list_usernames, list_names, list_emails, list_hashed_passwords
 
-def create_config():
+def create_config() -> dict(str):
     """
     Combining all user data into a credentials dictionary
     """

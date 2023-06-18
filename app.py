@@ -1,28 +1,31 @@
 """
 This module is the main application 
 """
-import datetime
+import datetime as dt
+import pytz as tz
 import streamlit as st
 import streamlit_authenticator as stauth
 from modules import database as db
+
+
+# Setting title page
+st.set_page_config(page_title="Bawat Patak", page_icon=":droplet:")
+
 
 def greet() -> str:
     """
     Greeting the user 
     """
-    current_time = datetime.datetime.now()
+    manila = tz.timezone('Asia/Manila')
+    current_time = dt.datetime.now(manila)
 
     if current_time.hour < 12:
-        return "Good Morning,"
+        return "Good morning,"
 
     if 12 <= current_time.hour < 18:
-        return "Good Afternoon,"
+        return "Good afternoon,"
 
-    return "Good Evening,"
-
-
-# Setting title page
-st.set_page_config(page_title="Bawat Patak", page_icon=":droplet:")
+    return "Good evening,"
 
 
 def create_config():
@@ -70,7 +73,7 @@ def main():
 
     if authentication_status is True:
         authenticator.logout("Logout", "sidebar")
-        st.sidebar.title(f"{greet()} {name.title()}")
+        st.sidebar.title(f"{greet()} {name.title()}!")
         st.title("📊 Your Dashboard")
         st.write("Some Dashboard")
 

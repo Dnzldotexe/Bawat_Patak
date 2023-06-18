@@ -42,9 +42,12 @@ def to_list() -> list[str]:
 
     return list_usernames, list_names, list_emails, list_hashed_passwords
 
-def create_config() -> dict(str):
+def create_config():
     """
     Combining all user data into a credentials dictionary
+
+    Returns:
+        dict()
     """
     usernames, names, emails, passwords = to_list()
 

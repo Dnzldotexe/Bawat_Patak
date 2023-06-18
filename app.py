@@ -1,9 +1,24 @@
 """
 This module is the main application 
 """
+import datetime
 import streamlit as st
 import streamlit_authenticator as stauth
 from modules import database as db
+
+def greet():
+    """
+    Greeting the user 
+    """
+    current_time = datetime.datetime.now()
+
+    if current_time.hour < 12:
+        return "Good Morning, "
+
+    if 12 <= current_time.hour < 18:
+        return "Good Afternoon, "
+
+    return "Good Evening, "
 
 
 # Setting title page
@@ -23,15 +38,15 @@ def to_list() -> list[str]:
     list_hashed_passwords = [user['hashed_passwords'] for user in users.data]
 
     return list_usernames, list_names, list_emails, list_hashed_passwords
-                
+
 def create_config():
     """
     Combining all user data into a credentials dictionary
     """
-    list_usernames, list_names, list_emails, list_passwords = to_list()
+    usernames, names, emails, passwords = to_list()
 
     credentials = {"usernames":{}}
-    for username, name, email, password in zip(list_usernames, list_names, list_emails, list_passwords):
+    for username, name, email, password in zip(usernames, names, emails, passwords):
         user_dict = {"email": email, "name":name,"password":password}
         credentials["usernames"].update({username:user_dict})
 
@@ -39,6 +54,9 @@ def create_config():
 
 
 def main():
+    """
+    Contains the functions of the application
+    """
     authenticator = stauth.Authenticate(create_config(),
         "logs_cookie", "cookie_key_abcd", 14)
 
@@ -50,14 +68,15 @@ def main():
     if authentication_status is None:
         st.warning("Please enter your username and password")
 
-    if authentication_status:
+    if authentication_status is True:
+        st.success(f"Welcome *{username}*")
         authenticator.logout("Logout", "sidebar")
         st.sidebar.title(f"Welcome {name}")
         st.title("📊 Your Dashboard")
         st.write("Some Dashboard")
 
         st.title("📄 Your Logs ✍")
-        st.write("This is a placeholder. I'm checking if changes reflects immediately to streamlit.")
+        st.write("This is a placeholder.")
 
 
 if __name__ == "__main__":

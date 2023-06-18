@@ -70,7 +70,7 @@ def main():
 
     if authentication_status is True:
         authenticator.logout("Logout", "sidebar")
-        st.sidebar.title(f"{greet()} {name}")
+        st.sidebar.title(f"{greet()} {name.title()}")
         st.title("📊 Your Dashboard")
         st.write("Some Dashboard")
 

@@ -16,6 +16,8 @@ def greet() -> str:
     """
     Greeting the user 
     """
+
+    # Setting timezone to Manila
     manila = tz.timezone('Asia/Manila')
     current_time = dt.datetime.now(manila)
 
@@ -45,9 +47,10 @@ def create_config():
     emails = [user['emails'] for user in users.data]
     passwords = [user['passwords'] for user in users.data]
 
-    # hashing passwords
+    # Hashing passwords
     hashed_passwords = stauth.Hasher(passwords).generate()
 
+    # Aggregated credentials dictionary
     credentials = {"usernames":{}}
     for username, name, email, password in zip(usernames, names, emails, hashed_passwords):
         user_dict = {"email": email, "name":name,"password":password}
@@ -56,15 +59,18 @@ def create_config():
     return credentials
 
 
-def main():
+def main() -> None:
     """
     Contains the functions of the application
     """
+    # Authenticating credentials
     authenticator = stauth.Authenticate(create_config(),
         "logs_cookie", "cookie_key_abcd", 14)
 
+    # Log in UI
     name, authentication_status, username = authenticator.login('Login', 'main')
 
+    # Checking session state/cookie
     if st.session_state["authentication_status"] is False:
         st.error("Username/Password is incorrect")
 
@@ -81,5 +87,6 @@ def main():
         st.write("This is a placeholder.")
 
 
+# Running main
 if __name__ == "__main__":
     main()

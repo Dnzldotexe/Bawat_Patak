@@ -63,10 +63,16 @@ def main() -> None:
     """
     Contains the functions of the application
     """
+
+
     # Authenticating credentials
     authenticator = stauth.Authenticate(create_config(),
         "logs_cookie", "cookie_key_abcd", 14)
-
+    try:
+        if authenticator.register_user('Register user', preauthorization=False):
+            st.success('User registered successfully')
+    except Exception as e:
+        st.error(e)
     # Log in UI
     name, authentication_status, username = authenticator.login('Login', 'main')
 

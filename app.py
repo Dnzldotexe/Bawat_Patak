@@ -68,7 +68,7 @@ def main() -> None:
     """
     # Authenticating credentials
     authenticator = stauth.Authenticate(create_config(),
-        "logs_cookie", "cookie_key_abcd", 14)
+        "bawat-patak_cookie", "cookie_key_abcde", 14)
 
     # Log in UI
     name, authentication_status, username = authenticator.login('Login', 'main')

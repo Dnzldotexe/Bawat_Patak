@@ -40,7 +40,7 @@ def insert_user(
         email: str,
         password: str,
         cookie_name: str="bawat-patak_cookie",
-        cookie_key: str="abcde"
+        cookie_key: str="cookie_key_abcde"
         ) -> None:
     """
     Inserts new user to the database

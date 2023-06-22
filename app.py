@@ -12,22 +12,25 @@ from modules import database as db
 st.set_page_config(page_title="Bawat Patak", page_icon=":droplet:")
 
 
-def greet() -> str:
+def greet(name: str) -> str:
     """
-    Greeting the user 
+    Greeting the user
     """
 
     # Setting timezone to Manila
     manila = tz.timezone('Asia/Manila')
     current_time = dt.datetime.now(manila)
 
+    # Getting the user's first name
+    first_name = name.split(" ")[0].title()
+
     if current_time.hour < 12:
-        return "Good morning,"
+        return f"Good morning, {first_name}!"
 
     if 12 <= current_time.hour < 18:
-        return "Good afternoon,"
+        return f"Good afternoon, {first_name}!"
 
-    return "Good evening,"
+    return f"Good evening, {first_name}!"
 
 
 def create_config():
@@ -79,7 +82,7 @@ def main() -> None:
 
     if st.session_state["authentication_status"]:
         authenticator.logout("Logout", "sidebar", key="unique_key")
-        st.sidebar.title(f"{greet()} {name.title()}!")
+        st.sidebar.title(f"{greet(name)}")
         st.title("📊 Your Dashboard")
         st.write("Some Dashboard")
 

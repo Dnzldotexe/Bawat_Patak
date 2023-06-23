@@ -98,12 +98,17 @@ def main() -> None:
 
 
                 st.write(new_user['usernames'])
-                st.write(new_user['usernames'].keys())
-                st.write(new_user['usernames'].values())
-                email, name, password = new_user['usernames'].values()
-                st.write(email)
-                st.write(name)
-                st.write(password)
+                
+                username = new_user['usernames'].keys()
+                # name = new_user['usernames'][username]
+                # username = new_user['usernames'].keys()
+                # username = new_user['usernames'].keys()
+                
+                st.write(username)
+                # st.write()
+                # st.write()
+                # st.write()
+                # st.write()
                 st.success('User registered successfully')
 
         except Exception as error:

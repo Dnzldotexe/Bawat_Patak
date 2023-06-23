@@ -1,4 +1,4 @@
-# Bawat_Patak
+# Bawat Patak
 Access the demo here -> https://bawat-patak.streamlit.app/
 - Username: admin
 - Password: admin

@@ -97,14 +97,13 @@ def main() -> None:
                 new_user = {key.lower(): value for key, value in list(new_user['usernames'].items())[-1:]}
 
 
-                new_username = list(new_user.keys())[0]
-                st.write(new_username)
-                new_name = new_user[new_username]['name']
-                st.write(new_name)
-                # email = new_user[username]['email']
-                # password = new_user[username]['password']
+                username = list(new_user.keys())[0]
+                name = new_user[username]['name']
+                email = new_user[username]['email']
+                password = new_user[username]['password']
+                st.write(username, name, email, password)
                 
-                # db.insert_user(username, name, email, password)
+                #db.insert_user(username, name, email, password)
                 st.success('User registered successfully')
 
         except Exception as error:

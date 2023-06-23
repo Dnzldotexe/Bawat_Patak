@@ -51,7 +51,7 @@ def create_config():
     passwords = [user['passwords'] for user in users.data]
 
     # Hashing passwords
-    #
+    #hashed_passwords = stauth.Hasher(passwords).generate()
 
     # Aggregated credentials dictionary
     credentials = {"usernames":{}}
@@ -97,7 +97,6 @@ def main() -> None:
 
                 # Inserting to the database
                 db.insert_user(username, name, email, password)
-                #db.fetch_all_users()
                 st.success('User registered successfully')
 
         except Exception as error:

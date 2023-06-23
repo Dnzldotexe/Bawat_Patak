@@ -89,12 +89,16 @@ def main() -> None:
         st.title("📄 Your Logs ✍")
         st.write("This is a placeholder.")
 
+    if not st.session_state["authentication_status"]:
     # Registration UI
-    try:
-        if authenticator.register_user('Register user', preauthorization=False):
-            st.success('User registered successfully')
-    except Exception as error:
-        st.error(error)
+        try:
+            if authenticator.register_user('Register user', preauthorization=False):
+
+
+                st.success('User registered successfully')
+
+        except Exception as error:
+            st.error(error)
 
 
 # Running main

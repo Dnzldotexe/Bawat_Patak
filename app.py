@@ -106,7 +106,7 @@ def main() -> None:
     if st.session_state["authentication_status"]:
         authenticator.logout("Logout", "sidebar", key="unique_key")
         st.sidebar.title(f"{greet(name)}")
-        st.title("📊 Your Dashboard")
+        st.title("📊 Your Dashboard 🌊")
         st.write("Some Dashboard")
 
         st.title("📄 Your Logs ✍")

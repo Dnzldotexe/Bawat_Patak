@@ -97,10 +97,10 @@ def main() -> None:
                 new_user['usernames'] = {key.lower(): value for key, value in list(new_user['usernames'].items())[-1:]}
 
 
-                username = new_user.keys()[0]
-                st.write(username)
-                name = new_user[username]['name']
-                st.write(name)
+                new_username = list(new_user.keys())[0]
+                st.write(new_username)
+                new_name = new_user[new_username]['name']
+                st.write(new_name)
                 # email = new_user[username]['email']
                 # password = new_user[username]['password']
                 

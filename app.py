@@ -71,7 +71,7 @@ def main() -> None:
         "bawat-patak_cookie", "cookie_key_abcde", 14)
 
     # Log in UI
-    name, authentication_status, username = authenticator.login('Login', 'main')
+    name, authentication_status, username = authenticator.login('Log In', 'main')
 
     # Checking session state/cookie
     if st.session_state["authentication_status"] is False:
@@ -90,11 +90,13 @@ def main() -> None:
         st.write("This is a placeholder.")
 
     if not st.session_state["authentication_status"]:
-    # Registration UI
+        # Registration UI
         try:
-            if authenticator.register_user('Register user', preauthorization=False):
+            if authenticator.register_user('Sign Up', preauthorization=False):
+                new_user = authenticator.credentials
 
 
+                st.write(new_user)
                 st.success('User registered successfully')
 
         except Exception as error:

@@ -74,21 +74,6 @@ def main() -> None:
     name, authentication_status, username = authenticator.login('Log In', 'main')
 
     # Checking session state/cookie
-    if st.session_state["authentication_status"] is False:
-        st.error("Username/Password is incorrect")
-
-    if st.session_state["authentication_status"] is None:
-        st.warning("Please enter your username and password")
-
-    if st.session_state["authentication_status"]:
-        authenticator.logout("Logout", "sidebar", key="unique_key")
-        st.sidebar.title(f"{greet(name)}")
-        st.title("📊 Your Dashboard")
-        st.write("Some Dashboard")
-
-        st.title("📄 Your Logs ✍")
-        st.write("This is a placeholder.")
-
     if not st.session_state["authentication_status"]:
         try:
             # Registration UI
@@ -106,10 +91,26 @@ def main() -> None:
 
                 # Inserting to the database
                 db.insert_user(username, name, email, password)
+                db.fetch_all_users()
                 st.success('User registered successfully')
 
         except Exception as error:
             st.error(error)
+
+    if st.session_state["authentication_status"] is False:
+        st.error("Username/Password is incorrect")
+
+    if st.session_state["authentication_status"] is None:
+        st.warning("Please enter your username and password")
+
+    if st.session_state["authentication_status"]:
+        authenticator.logout("Logout", "sidebar", key="unique_key")
+        st.sidebar.title(f"{greet(name)}")
+        st.title("📊 Your Dashboard")
+        st.write("Some Dashboard")
+
+        st.title("📄 Your Logs ✍")
+        st.write("This is a placeholder.")
 
 
 # Running main

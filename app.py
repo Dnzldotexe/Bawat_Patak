@@ -97,7 +97,7 @@ def main() -> None:
                 new_user['usernames'] = {key.lower(): value for key, value in list(new_user['usernames'].items())[-1:]}
 
 
-                username = new_user.keys()
+                username = new_user.keys()[0]
                 st.write(username)
                 name = new_user[username]['name']
                 st.write(name)

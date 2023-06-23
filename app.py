@@ -94,7 +94,7 @@ def main() -> None:
         try:
             if authenticator.register_user('Sign Up', preauthorization=False):
                 new_user = authenticator.credentials
-                new_user['usernames'] = {key.lower(): value for key, value in list(new_user['usernames'].items())[-1:]}
+                new_user = {key.lower(): value for key, value in list(new_user['usernames'].items())[-1:]}
 
 
                 new_username = list(new_user.keys())[0]

@@ -51,11 +51,11 @@ def create_config():
     passwords = [user['passwords'] for user in users.data]
 
     # Hashing passwords
-    #hashed_passwords = stauth.Hasher(passwords).generate()
+    hashed_passwords = stauth.Hasher(passwords).generate()
 
     # Aggregated credentials dictionary
     credentials = {"usernames":{}}
-    for username, name, email, password in zip(usernames, names, emails, passwords):
+    for username, name, email, password in zip(usernames, names, emails, hashed_passwords):
         user_dict = {"email": email, "name":name,"password":password}
         credentials["usernames"].update({username:user_dict})
 

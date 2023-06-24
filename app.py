@@ -145,6 +145,7 @@ def main() -> None:
             st.title("📚 About Bawat Patak:")
             st.header("🥅 Goal")
             st.subheader("Bawat Patak [project definition here]")
+            st.divider()
 
             # Sustainable Development Goals
             st.header("🤓 More:")

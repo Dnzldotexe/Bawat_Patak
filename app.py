@@ -98,7 +98,6 @@ def main() -> None:
 
                 st.write(authenticator.credentials)
                 st.write(new_user)
-                st.write(new_user["usernames"])
                 st.write(username, name, email, password)
 
                 # Inserting to the database

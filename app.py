@@ -146,7 +146,7 @@ def main() -> None:
             st.subheader("Bawat Patak [project definition here]")
 
             # Sustainable Development Goals
-            st.header("🤓 Learn more about:")
+            st.header("🤓 Learn more:")
             st.subheader("[Sustainable Development Goal 6](https://sdgs.un.org/goals/goal6)")
             st.subheader("[UN Water](https://www.unwater.org/about-un-water)")
             st.divider()

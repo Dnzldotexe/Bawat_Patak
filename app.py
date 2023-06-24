@@ -121,7 +121,7 @@ def main() -> None:
         # Side bar multipage options
         with st.sidebar:
             selected = option_menu(
-                menu_title="None",
+                menu_title=None,
                 options=["Dashboard", "About"],
             )
 
@@ -131,6 +131,7 @@ def main() -> None:
             # Dashboard
             st.title("📊 Your Dashboard 🌊")
             st.write("Some Dashboard here")
+            st.divider()
 
             # Logs
             st.title("📄 Your Logs ✍")
@@ -141,19 +142,24 @@ def main() -> None:
 
             # Definition
             st.title("📚 About Bawat Patak:")
+            st.header("Goal")
             st.write("Bawat Patak [project definition here]")
             st.divider()
 
             # Sustainable Development Goals
-            st.header("Learn more about:")
-            st.write("[Sustainable Development Goal 6](https://sdgs.un.org/goals/goal6)")
-            st.write("[UN Water](https://www.unwater.org/about-un-water)")
+            st.title("Learn more about:")
+            st.header("[Sustainable Development Goal 6](https://sdgs.un.org/goals/goal6)")
+            st.header("[UN Water](https://www.unwater.org/about-un-water)")
             st.divider()
 
             # App Author
-            st.header("Application Authors:")
-            st.write("Danziel Cempron")
-            st.write("Ashly Jude Degala")
+            st.title("Application Authors:")
+            st.header("Danziel Cempron")
+            st.header("Ashly Jude Degala")
+            st.divider()
+
+            # GitHub repo
+            st.header("[GitHub Repository](https://github.com/Dnzldotexe/Bawat_Patak)")
 
 
 # Running main

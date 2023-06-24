@@ -142,24 +142,17 @@ def main() -> None:
 
             # Definition
             st.title("📚 About Bawat Patak:")
-            st.header("Goal")
+            st.header("🚫🗑 Goal")
             st.write("Bawat Patak [project definition here]")
-            st.divider()
 
             # Sustainable Development Goals
-            st.title("Learn more about:")
-            st.header("[Sustainable Development Goal 6](https://sdgs.un.org/goals/goal6)")
-            st.header("[UN Water](https://www.unwater.org/about-un-water)")
-            st.divider()
-
-            # App Author
-            st.title("Application Authors:")
-            st.header("Danziel Cempron")
-            st.header("Ashly Jude Degala")
+            st.header("🤓 Learn more about:")
+            st.write("[Sustainable Development Goal 6](https://sdgs.un.org/goals/goal6)")
+            st.write("[UN Water](https://www.unwater.org/about-un-water)")
             st.divider()
 
             # GitHub repo
-            st.header("[GitHub Repository](https://github.com/Dnzldotexe/Bawat_Patak)")
+            st.header("[🤖 GitHub Repository](https://github.com/Dnzldotexe/Bawat_Patak)")
 
 
 # Running main

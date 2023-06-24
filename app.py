@@ -1,14 +1,15 @@
 """
-This module is the main application 
+This module contains the main application 
 """
 import datetime as dt
 import pytz as tz
 import streamlit as st
 import streamlit_authenticator as stauth
+from streamlit_option_menu import option_menu
 from modules import database as db
 
 
-# Setting title page
+# Setting page title and icon
 st.set_page_config(page_title="Bawat Patak", page_icon=":droplet:")
 
 
@@ -18,22 +19,25 @@ def greet(name: str) -> str:
     """
 
     # Setting timezone to Manila
-    manila = tz.timezone('Asia/Manila')
+    manila = tz.timezone("Asia/Manila")
     current_time = dt.datetime.now(manila)
 
     # Getting the user's first name
     first_name = name.split(" ")[0].title()
 
+    # Good morning
     if current_time.hour < 12:
         return f"Good morning, {first_name}!"
 
+    # Good afternoon
     if 12 <= current_time.hour < 18:
         return f"Good afternoon, {first_name}!"
 
+    # Good evening
     return f"Good evening, {first_name}!"
 
 
-def create_config():
+def aggregate_credentials():
     """
     Combining all user data into a credentials dictionary
 
@@ -45,10 +49,10 @@ def create_config():
     users = db.fetch_all_users()
 
     # Converting fetched data into list independent of each other
-    usernames = [user['usernames'] for user in users.data]
-    names = [user['names'] for user in users.data]
-    emails = [user['emails'] for user in users.data]
-    passwords = [user['passwords'] for user in users.data]
+    usernames = [user["usernames"] for user in users.data]
+    names = [user["names"] for user in users.data]
+    emails = [user["emails"] for user in users.data]
+    passwords = [user["passwords"] for user in users.data]
 
     # Aggregated credentials dictionary
     credentials = {"usernames":{}}
@@ -56,6 +60,7 @@ def create_config():
         user_dict = {"email": email, "name":name,"password":password}
         credentials["usernames"].update({username:user_dict})
 
+    # Returning dictionary
     return credentials
 
 
@@ -63,51 +68,92 @@ def main() -> None:
     """
     Contains the functions of the application
     """
+
     # Authenticating credentials
-    authenticator = stauth.Authenticate(create_config(),
+    authenticator = stauth.Authenticate(aggregate_credentials(),
         "bawat-patak_cookie", "cookie_key_abcde", 14)
 
     # Log in UI
-    name, authentication_status, username = authenticator.login('Log In', 'main')
+    name, authentication_status, username = authenticator.login("Log In", "main")
 
     # Checking session state/cookie
+    # When wrong input
     if st.session_state["authentication_status"] is False:
         st.error("Username/Password is incorrect")
 
+    # When no input
     if st.session_state["authentication_status"] is None:
         st.warning("Please enter your username and password")
 
+    # Sign up UI
     if not st.session_state["authentication_status"]:
         try:
-            # Registration UI
-            if authenticator.register_user('Sign Up', preauthorization=False):
-                st.success('User registered successfully')
+            if authenticator.register_user("Sign Up", preauthorization=False):
+                st.success("User registered successfully")
 
                 # Getting credentials of the new user
                 new_user = authenticator.credentials
-                new_user = {key.lower(): value for key, value in list(new_user['usernames'].items())[-1:]}
+                new_user = {key.lower(): value for key, value in list(new_user["usernames"].items())[-1:]}
 
                 # Assigning to each variables
                 username = list(new_user.keys())[0]
-                name = new_user[username]['name']
-                email = new_user[username]['email']
-                password = new_user[username]['password']
+                name = new_user[username]["name"]
+                email = new_user[username]["email"]
+                password = new_user[username]["password"]
 
-                # Inserting to the database
+                # Inserting new user to the database
                 db.insert_user(username, name, email, password)
                 db.fetch_all_users()
 
+        # Raising exception/s
         except Exception as error:
             st.error(error)
 
+    # Main app if logged in
     if st.session_state["authentication_status"]:
-        authenticator.logout("Logout", "sidebar", key="unique_key")
-        st.sidebar.title(f"{greet(name)}")
-        st.title("📊 Your Dashboard 🌊")
-        st.write("Some Dashboard here")
 
-        st.title("📄 Your Logs ✍")
-        st.write("Some logs here")
+        # Side bar log out button
+        authenticator.logout("Logout", "sidebar", key="unique_key")
+
+        # Greeting the user
+        st.sidebar.title(f"{greet(name)}")
+
+        # Side bar multipage options
+        with st.sidebar:
+            selected = option_menu(
+                menu_title="None",
+                options=["Dashboard", "About"],
+            )
+
+        # Dashboard and Logs page
+        if selected == "Dashboard":
+
+            # Dashboard
+            st.title("📊 Your Dashboard 🌊")
+            st.write("Some Dashboard here")
+
+            # Logs
+            st.title("📄 Your Logs ✍")
+            st.write("Some logs here")
+
+        # About page
+        if selected == "About":
+
+            # Definition
+            st.title("📚 About Bawat Patak:")
+            st.write("Bawat Patak [project definition here]")
+            st.divider()
+
+            # Sustainable Development Goals
+            st.header("Learn more about:")
+            st.write("[Sustainable Development Goal 6](https://sdgs.un.org/goals/goal6)")
+            st.write("[UN Water](https://www.unwater.org/about-un-water)")
+            st.divider()
+
+            # App Author
+            st.header("Application Authors:")
+            st.write("Danziel Cempron")
+            st.write("Ashly Jude Degala")
 
 
 # Running main

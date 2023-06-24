@@ -123,6 +123,7 @@ def main() -> None:
             selected = option_menu(
                 menu_title=None,
                 options=["Dashboard", "About"],
+                icons=["graph-up", "book"],
             )
 
         # Dashboard and Logs page

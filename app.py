@@ -149,8 +149,8 @@ def main() -> None:
 
             # Sustainable Development Goals
             #st.header("🤓 More:")
-            st.subheader("[Sustainable Development Goal 6](https://sdgs.un.org/goals/goal6)")
-            st.subheader("[UN Water](https://www.unwater.org/about-un-water)")
+            st.subheader("[💡 Sustainable Development Goal 6](https://sdgs.un.org/goals/goal6)")
+            st.subheader("[🌏 UN Water](https://www.unwater.org/about-un-water)")
             st.divider()
 
             # GitHub repo

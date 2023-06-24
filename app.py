@@ -62,29 +62,6 @@ def create_config():
     return credentials
 
 
-def registration():
-    try:
-        # Registration UI
-        if authenticator.register_user('Sign Up', preauthorization=False):
-            st.success('User registered successfully')
-
-        # Getting credentials of the new user
-        new_user = authenticator.credentials
-        new_user = {key.lower(): value for key, value in list(new_user['usernames'].items())[-1:]}
-
-        # Assigning to each variables
-        username = list(new_user.keys())[0]
-        name = new_user[username]['name']
-        email = new_user[username]['email']
-        password = new_user[username]['password']
-
-        # Inserting to the database
-        db.insert_user(username, name, email, password)
-
-    except Exception as error:
-        st.error(error)
-
-
 def main() -> None:
     """
     Contains the functions of the application
@@ -104,7 +81,26 @@ def main() -> None:
         st.warning("Please enter your username and password")
 
     if not st.session_state["authentication_status"]:
-        registration()
+        try:
+            # Registration UI
+            if authenticator.register_user('Sign Up', preauthorization=False):
+                st.success('User registered successfully')
+
+            # Getting credentials of the new user
+            new_user = authenticator.credentials
+            new_user = {key.lower(): value for key, value in list(new_user['usernames'].items())[-1:]}
+
+            # Assigning to each variables
+            username = list(new_user.keys())[0]
+            name = new_user[username]['name']
+            email = new_user[username]['email']
+            password = new_user[username]['password']
+
+            # Inserting to the database
+            db.insert_user(username, name, email, password)
+
+        except Exception as error:
+            st.error(error)
 
     if st.session_state["authentication_status"]:
         authenticator.logout("Logout", "sidebar", key="unique_key")

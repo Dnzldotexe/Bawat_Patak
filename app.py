@@ -143,12 +143,10 @@ def main() -> None:
 
             # Definition
             st.title("📚 About Bawat Patak:")
-            #st.header("🥅 Goal")
             st.subheader("Bawat Patak [project definition here]")
             st.divider()
 
-            # Sustainable Development Goals
-            #st.header("🤓 More:")
+            # SDGs and Institutions
             st.subheader("[💡 Sustainable Development Goal 6](https://sdgs.un.org/goals/goal6)")
             st.subheader("[🌏 UN Water](https://www.unwater.org/about-un-water)")
             st.divider()

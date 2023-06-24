@@ -50,9 +50,6 @@ def create_config():
     emails = [user['emails'] for user in users.data]
     passwords = [user['passwords'] for user in users.data]
 
-    # Hashing passwords
-    # hashed_passwords = stauth.Hasher(passwords).generate()
-
     # Aggregated credentials dictionary
     credentials = {"usernames":{}}
     for username, name, email, password in zip(usernames, names, emails, passwords):
@@ -96,12 +93,9 @@ def main() -> None:
                 email = new_user[username]['email']
                 password = new_user[username]['password']
 
-                st.write(authenticator.credentials)
-                st.write(new_user)
-                st.write(username, name, email, password)
-
                 # Inserting to the database
                 db.insert_user(username, name, email, password)
+                db.fetch_all_users()
 
         except Exception as error:
             st.error(error)
@@ -110,10 +104,10 @@ def main() -> None:
         authenticator.logout("Logout", "sidebar", key="unique_key")
         st.sidebar.title(f"{greet(name)}")
         st.title("📊 Your Dashboard 🌊")
-        st.write("Some Dashboard")
+        st.write("Some Dashboard here")
 
         st.title("📄 Your Logs ✍")
-        st.write("This is a placeholder.")
+        st.write("Some logs here")
 
 
 # Running main

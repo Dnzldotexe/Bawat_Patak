@@ -74,13 +74,13 @@ def main() -> None:
     name, authentication_status, username = authenticator.login('Log In', 'main')
 
     # Checking session state/cookie
-    if st.session_state["authentication_status"] is False:
+    if authentication_status is False:
         st.error("Username/Password is incorrect")
 
-    if st.session_state["authentication_status"] is None:
+    if authentication_status is None:
         st.warning("Please enter your username and password")
 
-    if not st.session_state["authentication_status"]:
+    if not authentication_status:
         try:
             # Registration UI
             if authenticator.register_user('Sign Up', preauthorization=False):
@@ -102,7 +102,7 @@ def main() -> None:
         except Exception as error:
             st.error(error)
 
-    if st.session_state["authentication_status"]:
+    if authentication_status:
         authenticator.logout("Logout", "sidebar", key="unique_key")
         st.sidebar.title(f"{greet(name)}")
         st.title("📊 Your Dashboard 🌊")

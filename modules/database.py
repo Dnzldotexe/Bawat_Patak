@@ -45,7 +45,7 @@ def insert_user(
     """
     Inserts new user to the database
     """
-    data, count = supabase.table('users_db').insert({
+    data, count = supabase.table("users_db").insert({
         "usernames": username, 
         "names": name,
         "emails": email,

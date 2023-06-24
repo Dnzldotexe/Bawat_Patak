@@ -23,7 +23,7 @@ supabase = init_connection()
 
 
 # Caching the fetched data
-@st.cache_data(ttl=600)
+@st.cache_data(ttl=10)
 
 def fetch_all_users():
     """

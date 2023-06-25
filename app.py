@@ -190,7 +190,8 @@ def main() -> None:
             filtered_logs_view.columns = ["Date", "Consumption (m^3)"]
 
             # Table view
-            st.table(filtered_logs_view)
+            # New input appears on top
+            st.table(filtered_logs_view.sort_index(ascending=False))
 
 
 # Running main

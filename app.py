@@ -89,6 +89,7 @@ def main() -> None:
     # Sign up UI
     #st.divider()
     if not st.session_state["authentication_status"]:
+        st.divider()
         try:
             if authenticator.register_user("Sign Up", preauthorization=False):
                 st.success("User registered successfully")

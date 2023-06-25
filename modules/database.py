@@ -69,7 +69,7 @@ def fetch_logs(usernames: str):
 def insert_logs(
         usernames: str,
         date: str,
-        consumption: float
+        consumption: int
         ) -> None:
     """
     Inserts new logs to the database

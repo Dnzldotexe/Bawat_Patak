@@ -3,6 +3,7 @@ This module contains the main application
 """
 import datetime as dt
 import pytz as tz
+import pandas as pd
 import streamlit as st
 import streamlit_authenticator as stauth
 from streamlit_option_menu import option_menu
@@ -161,8 +162,9 @@ def main() -> None:
                 with col1:
                     date = st.date_input(
                         "Reading Date",
-                        str(dt.date.today()),
+                        dt.date.today(),
                     )
+                    date_string = date.isoformat()
 
                 # Column 2
                 with col2:
@@ -175,12 +177,13 @@ def main() -> None:
                 submitted = st.form_submit_button("Submit")
                 if submitted:
                     # Store user log into the database
-                    st.write(username, consumption, date, type(date), type(dt.date.today()))
-                    #db.insert_logs(username, date, consumption)
+                    db.insert_logs(username, date_string, consumption)
                     st.success("Log added successfully")
 
             # Consumption Table
-            #st.table()
+            logs, count = db.fetch_logs(username)
+            dataframe = pd.DataFrame(logs[1])
+            st.table(dataframe[["date", "consumption"]])
 
 
 # Running main

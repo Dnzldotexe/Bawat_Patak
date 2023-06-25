@@ -87,7 +87,7 @@ def main() -> None:
         st.warning("Please enter your username and password")
 
     # Sign up UI
-    st.divider()
+    #st.divider()
     if not st.session_state["authentication_status"]:
         try:
             if authenticator.register_user("Sign Up", preauthorization=False):

@@ -185,13 +185,15 @@ def main() -> None:
             logs, count = db.fetch_logs(username)
             dataframe = pd.DataFrame(logs[1])
 
-            # Filtering the data shown to the user
-            filtered_logs_view = dataframe[["date", "consumption"]]
-            filtered_logs_view.columns = ["Date", "Consumption (m^3)"]
+            # If dataframe has values
+            if not dataframe.empty:
+                # Filtering the data shown to the user
+                filtered_logs_view = dataframe[["date", "consumption"]]
+                filtered_logs_view.columns = ["Date", "Consumption (m^3)"]
 
-            # Table view
-            # New input appears on top
-            st.table(filtered_logs_view.sort_index(ascending=False))
+                # Table view
+                # New input appears on top
+                st.table(filtered_logs_view.sort_index(ascending=False))
 
 
 # Running main

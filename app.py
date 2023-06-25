@@ -126,18 +126,6 @@ def main() -> None:
                 icons=["graph-up", "book"],
             )
 
-        # Dashboard and Logs page
-        if selected == "Dashboard":
-
-            # Dashboard
-            st.title("📊 Your Dashboard 🌊")
-            st.write("Some Dashboard here")
-            st.divider()
-
-            # Logs
-            st.title("📄 Your Logs ✍")
-            st.write("Some logs here")
-
         # About page
         if selected == "About":
 
@@ -153,6 +141,31 @@ def main() -> None:
 
             # GitHub repo
             st.subheader("[🤖 GitHub Repository](https://github.com/Dnzldotexe/Bawat_Patak)")
+
+        # Dashboard and Logs page
+        if selected == "Dashboard":
+
+            # Dashboard
+            st.title("📊 Your Dashboard 🌊")
+            st.write("Some Dashboard here")
+            st.divider()
+
+            # Logs
+            st.title("📄 Your Logs ✍")
+            
+            # Container columns
+            col1, col2 = st.columns(2)
+
+            # Column 1
+            with col1:
+                date = st.date_input(
+                    "Reading Date",
+                    dt.date.today(),
+                )
+
+            # Column 2
+            with col2:
+                consumption = st.number_input("per Cubic Meters")
 
 
 # Running main

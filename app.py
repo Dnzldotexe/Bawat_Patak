@@ -165,7 +165,7 @@ def main() -> None:
 
             # Column 2
             with col2:
-                consumption = st.number_input("per Cubic Meters")
+                consumption = st.number_input("Consumption per Cubic Meters")
 
 
 # Running main

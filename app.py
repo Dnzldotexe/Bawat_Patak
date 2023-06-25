@@ -175,7 +175,8 @@ def main() -> None:
                 submitted = st.form_submit_button("Submit")
                 if submitted:
                     # Store user log into the database
-                    db.insert_logs(date, consumption)
+                    st.write(username, consumption, date, type(date))
+                    #db.insert_logs(username, date, consumption)
                     st.success("Log added successfully")
 
             # Consumption Table

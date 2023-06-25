@@ -75,7 +75,7 @@ def insert_logs(
     Inserts new logs to the database
     """
     data, count = supabase.table("logs_db").insert({
-        "usernames": usernames,
+        #"usernames": usernames,
         "date": date,
         "consumption": consumption
         }).execute()

@@ -87,6 +87,7 @@ def main() -> None:
         st.warning("Please enter your username and password")
 
     # Sign up UI
+    st.divider()
     if not st.session_state["authentication_status"]:
         try:
             if authenticator.register_user("Sign Up", preauthorization=False):
@@ -161,7 +162,7 @@ def main() -> None:
                 # Column 1
                 with col1:
                     date = st.date_input(
-                        "Reading Date",
+                        "Date taken",
                         dt.date.today(),
                     )
                     date_string = date.isoformat()

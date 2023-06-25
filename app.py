@@ -159,10 +159,9 @@ def main() -> None:
 
                 # Column 1
                 with col1:
-                    today = dt.date.today()
                     date = st.date_input(
                         "Reading Date",
-                        str(today),
+                        str(dt.date.today()),
                     )
 
                 # Column 2

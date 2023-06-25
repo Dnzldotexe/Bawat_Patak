@@ -67,7 +67,6 @@ def fetch_logs(usernames: str):
 
 
 def insert_logs(
-        #usernames: str,
         date: str,
         consumption: float
         ) -> None:
@@ -75,7 +74,6 @@ def insert_logs(
     Inserts new logs to the database
     """
     data, count = supabase.table("logs_db").insert({
-        #"usernames": usernames,
         "date": date,
         "consumption": consumption
         }).execute()

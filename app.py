@@ -180,10 +180,16 @@ def main() -> None:
                     db.insert_logs(username, date_string, consumption)
                     st.success("Log added successfully")
 
-            # Consumption Table
+            # Getting the logs data of the user
             logs, count = db.fetch_logs(username)
             dataframe = pd.DataFrame(logs[1])
-            st.table(dataframe[["date", "consumption"]])
+
+            # Filtering the data shown to the user
+            filtered_logs_view = dataframe[["date", "consumption"]]
+            filtered_logs_view.columns = ["Date", "Consumption (m^3)"]
+
+            # Table view
+            st.table(filtered_logs_view)
 
 
 # Running main

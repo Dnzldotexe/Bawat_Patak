@@ -153,19 +153,31 @@ def main() -> None:
             # Logs
             st.title("📄 Your Logs ✍")
             
-            # Container columns
-            col1, col2 = st.columns(2)
+            # Consumption Form
+            with st.form("Consumption Form"):
+                col1, col2 = st.columns(2)
 
-            # Column 1
-            with col1:
-                date = st.date_input(
-                    "Reading Date",
-                    dt.date.today(),
-                )
+                # Column 1
+                with col1:
+                    date = st.date_input(
+                        "Reading Date",
+                        dt.date.today(),
+                    )
 
-            # Column 2
-            with col2:
-                consumption = st.number_input("Consumption per Cubic Meters")
+                # Column 2
+                with col2:
+                    consumption = st.number_input(
+                        "Consumption per Cubic Meters",
+                        value = 0
+                    )
+                
+                # Submit button
+                submitted = st.form_submit_button("Submit")
+                if submitted:
+                    st.write(date, consumption)
+
+            # Consumption Table
+            #st.table()
 
 
 # Running main

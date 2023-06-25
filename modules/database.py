@@ -67,7 +67,7 @@ def fetch_logs(usernames: str):
 
 
 def insert_logs(
-        usernames: str,
+        #usernames: str,
         date: str,
         consumption: float
         ) -> None:

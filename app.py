@@ -152,7 +152,7 @@ def main() -> None:
 
             # Logs
             st.title("📄 Your Logs ✍")
-            
+
             # Consumption Form
             with st.form("Consumption Form"):
                 col1, col2 = st.columns(2)
@@ -170,11 +170,14 @@ def main() -> None:
                         "Consumption per Cubic Meters",
                         value = 0
                     )
-                
+
                 # Submit button
                 submitted = st.form_submit_button("Submit")
                 if submitted:
-                    st.write(date, consumption)
+                    # Store in database
+                    st.write(username, date, consumption)
+                    #db.insert_logs()
+                    st.success("Added successfully")
 
             # Consumption Table
             #st.table()

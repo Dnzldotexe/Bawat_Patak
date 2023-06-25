@@ -34,6 +34,7 @@ def fetch_all_users():
     """
     return supabase.table("users_db").select("*").execute()
 
+
 def insert_user(
         username: str,
         name: str,
@@ -52,4 +53,29 @@ def insert_user(
         "passwords": password,
         "cookie_names": cookie_name,
         "cookie_keys": cookie_key
+        }).execute()
+
+
+def fetch_logs(usernames: str):
+    """
+    Fetching specific user logs from the database using a foreign key
+    
+    Returns:
+        List of Dictionaries list[dict(str, str)]
+    """
+    return supabase.table("logs_db").select("*").eq("usernames", f"{usernames}").execute()
+
+
+def insert_logs(
+        usernames: str,
+        date: str,
+        consumption: str,
+        ) -> None:
+    """
+    Inserts new logs to the database
+    """
+    data, count = supabase.table("logs_db").insert({
+        "usernames": usernames,
+        "date": date,
+        "consumption": consumption,
         }).execute()

@@ -65,6 +65,39 @@ def aggregate_credentials():
     return credentials
 
 
+def view_logs(
+        username: str,
+        table: bool = False
+        ):
+    """
+    Gets the logs of the user
+
+    Returns:
+        Table / Dataframe / Empty Dataframe
+    """
+
+    # Fetching logs data of the user
+    logs, count = db.fetch_logs(username)
+    dataframe = pd.DataFrame(logs[1])
+
+    # If dataframe has values
+    if not dataframe.empty:
+        # Filtering the data shown to the user
+        filtered_logs_view = dataframe[["date", "consumption"]]
+        filtered_logs_view.columns = ["Date", "Consumption (m^3)"]
+
+        # Descending table view
+        if table:
+            # New input appears on top
+            return st.table(filtered_logs_view.sort_index(ascending=False))
+
+        # Ascending dataframe view
+        return filtered_logs_view
+
+    # Return empty dataframe
+    return dataframe
+
+
 def main() -> None:
     """
     Contains the functions of the application
@@ -149,7 +182,21 @@ def main() -> None:
 
             # Dashboard
             st.title("📊 Your Dashboard 🌊")
-            st.write("Some Dashboard here")
+            logs = view_logs(username)
+
+            # If dataframe has no values
+            if logs.empty:
+                st.write("Please add your water consumption data below🔽")
+
+            # If dataframe has values
+            if not logs.empty:
+                # Replace index with dates
+                logs = logs.set_index("Date")
+                consumption = logs["Consumption (m^3)"]
+
+                # Line chart UI
+                st.line_chart(consumption)
+
             st.divider()
 
             # Logs
@@ -159,7 +206,7 @@ def main() -> None:
             with st.form("Consumption Form"):
                 col1, col2 = st.columns(2)
 
-                # Column 1
+                # Calendar input field
                 with col1:
                     date = st.date_input(
                         "Date taken",
@@ -167,7 +214,7 @@ def main() -> None:
                     )
                     date_string = date.isoformat()
 
-                # Column 2
+                # Number input field
                 with col2:
                     consumption = st.number_input(
                         "Consumption per Cubic Meters",
@@ -176,24 +223,14 @@ def main() -> None:
 
                 # Submit button
                 submitted = st.form_submit_button("Submit")
-                if submitted:
-                    # Store user log into the database
+                # Input must be greater than zero
+                if submitted and consumption > 0:
+                    # Store user log/s into the database
                     db.insert_logs(username, date_string, consumption)
                     st.success("Log added successfully")
 
             # Getting the logs data of the user
-            logs, count = db.fetch_logs(username)
-            dataframe = pd.DataFrame(logs[1])
-
-            # If dataframe has values
-            if not dataframe.empty:
-                # Filtering the data shown to the user
-                filtered_logs_view = dataframe[["date", "consumption"]]
-                filtered_logs_view.columns = ["Date", "Consumption (m^3)"]
-
-                # Table view
-                # New input appears on top
-                st.table(filtered_logs_view.sort_index(ascending=False))
+            view_logs(username, True)
 
 
 # Running main

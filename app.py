@@ -77,18 +77,18 @@ def main() -> None:
     # Log in UI
     name, authentication_status, username = authenticator.login("Log In", "main")
 
-    # Checking session state/cookie
+    # Checking authentication status/browser cookie
     # When wrong input
-    if st.session_state["authentication_status"] is False:
+    if authentication_status is False:
         st.error("Username/Password is incorrect")
 
     # When no input
-    if st.session_state["authentication_status"] is None:
+    if authentication_status is None:
         st.warning("Please enter your username and password")
 
     # Sign up UI
     st.divider()
-    if not st.session_state["authentication_status"]:
+    if not authentication_status:
         try:
             if authenticator.register_user("Sign Up", preauthorization=False):
                 st.success("User registered successfully")
@@ -112,7 +112,7 @@ def main() -> None:
             st.error(error)
 
     # Main app if logged in
-    if st.session_state["authentication_status"]:
+    if authentication_status:
 
         # Side bar log out button
         authenticator.logout("Logout", "sidebar", key="unique_key")

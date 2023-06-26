@@ -1,13 +1,15 @@
 """
 This module contains the main application 
 """
-import datetime as dt
-import pytz as tz
-import pandas as pd
-import streamlit as st
-import streamlit_authenticator as stauth
-from streamlit_option_menu import option_menu
-from modules import database as db
+import datetime as dt   # Date and Time module
+import pytz as tz       # Timezone module
+import pandas as pd     # Data manipulation module
+import streamlit_authenticator as stauth    # Authentication module
+from streamlit_option_menu import option_menu   # Multipage module
+import importer as db   # Database module
+
+# Imported last, error otherwise
+import streamlit as st  # Web app module
 
 
 # Setting page title and icon

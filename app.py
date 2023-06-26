@@ -4,16 +4,14 @@ This module contains the main application
 import datetime as dt   # Date and Time module
 import pytz as tz       # Timezone module
 import pandas as pd     # Data manipulation module
-import streamlit_authenticator as stauth    # Authentication module
-from streamlit_option_menu import option_menu   # Multipage module
-import importer as db   # Database module
-
-# Imported last, error otherwise
 import streamlit as st  # Web app module
-
 
 # Setting page title and icon
 st.set_page_config(page_title="Bawat Patak", page_icon=":droplet:")
+
+import streamlit_authenticator as stauth    # Authentication module
+from streamlit_option_menu import option_menu   # Multipage module
+import importer as db   # Database module
 
 
 def greet(name: str) -> str:

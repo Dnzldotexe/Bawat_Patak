@@ -186,7 +186,7 @@ def main() -> None:
 
             # If dataframe has no values
             if logs.empty:
-                st.write("Please add your water consumption data below🔽")
+                st.warning("To display your Dashboard, please add your water consumption data below. 🔽")
 
             # If dataframe has values
             if not logs.empty:

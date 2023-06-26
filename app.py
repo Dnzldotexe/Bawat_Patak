@@ -233,6 +233,6 @@ def main() -> None:
             view_logs(username, True)
 
 
-# Running main
+# Running the main function
 if __name__ == "__main__":
     main()

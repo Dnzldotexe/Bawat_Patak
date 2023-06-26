@@ -1,7 +1,7 @@
 # Bawat Patak
 Access the demo here -> https://bawat-patak.streamlit.app/
-- Username: admin
-- Password: admin
+- Username: user
+- Password: user
 
 ## To run the app:
 1. Install the third party packages in the terminal:

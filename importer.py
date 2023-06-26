@@ -22,7 +22,7 @@ def init_connection() -> Client:
 supabase = init_connection()
 
 
-# Caching the fetched data
+# Caching the fetched data every 10 seconds
 @st.cache_data(ttl=10)
 
 def fetch_all_users():

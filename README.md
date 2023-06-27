@@ -4,7 +4,7 @@
     - username: user
     - password: user
 
-#### User Manual here -> [link here]
+#### User Manual here -> https://www.kaggle.com/code/cemprondanziel/user-manual#bawatpatak
 
 ## To run the app:
 1. Download this Repository as ZIP

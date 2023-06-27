@@ -1,8 +1,8 @@
 # Bawat Patak 💧
 
 #### App Demo here -> https://bawat-patak.streamlit.app/
-    - username: **user**
-    - password: **user**
+    - username: user
+    - password: user
 
 #### User Manual here -> [link here]
 

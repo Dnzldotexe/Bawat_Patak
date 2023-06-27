@@ -166,7 +166,7 @@ def main() -> None:
 
             # Definition
             st.title("📚 About Bawat Patak:")
-            st.subheader("Bawat Patak [project definition here]")
+            st.subheader("Bawat Patak: A Web App made to Raise Awareness about Water Conservation")
             st.divider()
 
             # SDGs and Institutions

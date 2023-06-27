@@ -15,6 +15,7 @@
 <ol style="font-size:30px; font-family:verdana; line-height: 1.7em">
     <li><strong>About the App</strong></li>
     <li><strong>How to Use the App</strong></li>
-    <li><strong>License</strong></li>
+    <li><strong>App License</strong></li>
     <li><strong>References</strong></li>
 </ol>
+

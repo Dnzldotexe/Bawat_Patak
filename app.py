@@ -6,6 +6,7 @@ import pytz as tz       # Timezone module
 import pandas as pd     # Data manipulation module
 import streamlit as st  # Web app module
 
+# MUST be called first, otherwise, error
 # Setting page title and icon
 st.set_page_config(page_title="Bawat Patak", page_icon=":droplet:")
 
@@ -16,9 +17,8 @@ import importer as db   # Database module
 
 def greet(name: str) -> str:
     """
-    Greeting the user
+    Greeting the user depending on the time of the day
     """
-
     # Setting timezone to Manila
     manila = tz.timezone("Asia/Manila")
     current_time = dt.datetime.now(manila)
@@ -26,15 +26,15 @@ def greet(name: str) -> str:
     # Getting the user's first name
     first_name = name.split(" ")[0].title()
 
-    # Good morning
+    # Greets the user Good morning
     if current_time.hour < 12:
         return f"Good morning, {first_name}!"
 
-    # Good afternoon
+    # Greets the user Good afternoon
     if 12 <= current_time.hour < 18:
         return f"Good afternoon, {first_name}!"
 
-    # Good evening
+    # Greets the user Good evening
     return f"Good evening, {first_name}!"
 
 
@@ -45,11 +45,10 @@ def aggregate_credentials():
     Returns:
         dict()
     """
-
     # Fetching all user data
     users = db.fetch_all_users()
 
-    # Converting fetched data into list independent of each other
+    # Converting fetched data into each independent list
     usernames = [user["usernames"] for user in users.data]
     names = [user["names"] for user in users.data]
     emails = [user["emails"] for user in users.data]
@@ -57,11 +56,13 @@ def aggregate_credentials():
 
     # Aggregated credentials dictionary
     credentials = {"usernames":{}}
+
+    # Assigning username as key to their own credentials
     for username, name, email, password in zip(usernames, names, emails, passwords):
         user_dict = {"email": email, "name":name,"password":password}
         credentials["usernames"].update({username:user_dict})
 
-    # Returning dictionary
+    # Returning credentials dictionary
     return credentials
 
 
@@ -75,7 +76,6 @@ def view_logs(
     Returns:
         Table / Dataframe / Empty Dataframe
     """
-
     # Fetching logs data of the user
     logs, count = db.fetch_logs(username)
     dataframe = pd.DataFrame(logs[1])
@@ -102,7 +102,6 @@ def main() -> None:
     """
     Contains the functions of the application
     """
-
     # Authenticating credentials
     authenticator = stauth.Authenticate(aggregate_credentials(),
         "bawat-patak_cookie", "cookie_key_abcde", 14)
@@ -122,7 +121,9 @@ def main() -> None:
     # Sign up UI
     st.divider()
     if not authentication_status:
+        # Validating user credentials
         try:
+            # When credentials are valid
             if authenticator.register_user("Sign Up", preauthorization=False):
                 st.success("User registered successfully")
 
@@ -130,14 +131,18 @@ def main() -> None:
                 new_user = authenticator.credentials
                 new_user = {key.lower(): value for key, value in list(new_user["usernames"].items())[-1:]}
 
-                # Assigning to each variables
+                # Getting the username used as key
                 username = list(new_user.keys())[0]
+
+                # Assigning to each variables
                 name = new_user[username]["name"]
                 email = new_user[username]["email"]
                 password = new_user[username]["password"]
 
                 # Inserting new user to the database
                 db.insert_user(username, name, email, password)
+
+                # Refreshing the page
                 db.fetch_all_users()
 
         # Raising exception/s
@@ -164,12 +169,12 @@ def main() -> None:
         # About page
         if selected == "About":
 
-            # Definition
+            # Project definition
             st.title("📚 About Bawat Patak:")
             st.subheader("Bawat Patak: A Web App made to Raise Awareness about Water Conservation")
             st.divider()
 
-            # SDGs and Institutions
+            # SDGs and Related institutions
             st.subheader("[💡 Sustainable Development Goal 6](https://sdgs.un.org/goals/goal6)")
             st.subheader("[🌏 UN Water](https://www.unwater.org/about-un-water)")
             st.divider()
@@ -197,9 +202,8 @@ def main() -> None:
                 # Line chart UI
                 st.line_chart(consumption)
 
-            st.divider()
-
             # Logs
+            st.divider()
             st.title("📄 Your Logs ✍")
 
             # Consumption Form
@@ -212,6 +216,7 @@ def main() -> None:
                         "Date taken",
                         dt.date.today(),
                     )
+                    # Converting date to string
                     date_string = date.isoformat()
 
                 # Number input field
@@ -231,6 +236,22 @@ def main() -> None:
 
             # Getting the logs data of the user
             view_logs(username, True)
+
+            # Download button placed to the rightmost side
+            col1, col2, col3, col4, col5 = st.columns(5)
+
+            # Download button
+            with col5:
+                # Does not appear when there's no data
+                if not logs.empty:
+                    # Converting dataframe to csv
+                    logs = logs.to_csv().encode('utf-8')
+                    st.download_button(
+                        "Download CSV",
+                        logs,
+                        "consumption_data.csv",
+                        "text/csv"
+                        )
 
 
 # Running the main function
